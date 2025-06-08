@@ -32,7 +32,7 @@ public class SelfProductService implements ProductService {
 
     @Override
     public Product createProduct(Product product) throws CategoryNotFoundException {
-        Category category = product.getCategory();
+        /*Category category = product.getCategory();
         if(category == null){
             throw new CategoryNotFoundException("Cannot create product without category information, please try again with category");
         }
@@ -46,7 +46,7 @@ public class SelfProductService implements ProductService {
         else{
             category = optionalCategory.get();
         }
-        product.setCategory(category);
+        product.setCategory(category);*/
         return productRepository.save(product);
     }
 
