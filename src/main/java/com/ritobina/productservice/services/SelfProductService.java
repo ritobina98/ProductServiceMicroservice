@@ -6,12 +6,17 @@ import com.ritobina.productservice.models.Category;
 import com.ritobina.productservice.models.Product;
 import com.ritobina.productservice.repositories.CategoryRepository;
 import com.ritobina.productservice.repositories.ProductRepository;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
+@Primary
 public class SelfProductService implements ProductService {
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
@@ -54,5 +59,18 @@ public class SelfProductService implements ProductService {
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
 
+    }
+
+    @Override
+    public Page<Product> getProductsByTitle(String title, int pageNumber, int pageSize) {
+        Sort sort = Sort.by
+                        (Sort.Order.asc("price"),
+                        Sort.Order.desc("title"));
+
+        return productRepository.findByTitleContainsIgnoreCase(
+                title,
+                PageRequest.of(pageNumber, pageSize, sort
+                )
+        );
     }
 }
