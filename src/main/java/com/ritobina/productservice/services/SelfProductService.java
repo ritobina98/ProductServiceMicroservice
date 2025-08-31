@@ -67,6 +67,16 @@ public class SelfProductService implements ProductService {
                         (Sort.Order.asc("price"),
                         Sort.Order.desc("title"));
 
+        //        Sort sort = null;
+//        if (sortInput.equals("ASC")) {
+//            sort = Sort.by(Sort.Direction.ASC, "price");
+//        } else {
+//            sort = Sort.by(Sort.Direction.DESC, "price");
+//        }
+//
+//        sort.by(......)
+
+
         return productRepository.findByTitleContainsIgnoreCase(
                 title,
                 PageRequest.of(pageNumber, pageSize, sort
